@@ -3,7 +3,9 @@
 		<TopMenu />
 		<div class="content">
 			<Field :map="currentMap" :player="currentPlayer" @move="onMove" />
-			<Character />
+			<Character :player="currentPlayer" />
+			<button @click="test">Equip Boots</button>
+			<button @click="test2">Unequip Boots</button>
 		</div>
 	</div>
 </template>
@@ -38,6 +40,12 @@ export default {
 			currentPlayer,
 			onMove(): void {
 				mapController.value.goToMudFlats();
+			},
+			test(): void {
+				playerController.value.test();
+			},
+			test2(): void {
+				playerController.value.test2();
 			},
 		};
 	},

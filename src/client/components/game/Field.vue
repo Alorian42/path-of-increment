@@ -1,5 +1,6 @@
 <template>
 	<div class="game-field">
+		<div class="label">{{ map.getName() }}</div>
 		<div class="map" :style="mapStyle" @click="onClick" />
 		<div class="character" :style="characterStyle" />
 	</div>
@@ -9,7 +10,7 @@
 import { computed, defineProps } from 'vue';
 import type { PropType } from 'vue';
 import type Map from '../../class/Map';
-import type Player from '../../class/Player';
+import type Player from '../../class/player/Player';
 
 const props = defineProps({
 	map: {
@@ -68,4 +69,11 @@ export default {
 	height: 150px;
 	background-size: contain;
 }
+
+.label {
+	position: absolute;
+	background: white;
+	padding: 10px;
+}
 </style>
+../../class/player/Player
