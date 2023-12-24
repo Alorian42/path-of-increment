@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Menu from '../views/Menu.vue';
 import Options from '../views/Options.vue';
+import Game from '../views/Game.vue';
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -14,6 +15,11 @@ const router = createRouter({
 			path: '/options',
 			name: 'options',
 			component: Options,
+		},
+		{
+			path: '/game',
+			name: 'game',
+			component: Game,
 		},
 	],
 });

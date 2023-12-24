@@ -2,17 +2,36 @@
 	<div class="menu">
 		<h1>Welcome to the Game Menu</h1>
 		<ul>
-			<li><a href="#">Start Game</a></li>
+			<li><span @click="startGame">Start Game</span></li>
 			<li><router-link :to="{ name: 'options' }">Options</router-link></li>
-			<li><a href="#">Exit</a></li>
+			<li><span @click="closeWindow">Exit</span></li>
 		</ul>
 	</div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const startGame = (): void => {
+	console.log('Starting game...');
+	router.push({ name: 'game' }).catch(err => {
+		console.error(err);
+	});
+};
+</script>
+
+<script lang="ts">
 export default {
-	name: 'Menu',
-}
+	name: 'MainMenu',
+	methods: {
+		closeWindow() {
+			if (window.confirm('Are you sure you want to exit?')) {
+				window.close();
+			}
+		},
+	},
+};
 </script>
 
 <style scoped>
