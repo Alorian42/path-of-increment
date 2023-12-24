@@ -34,49 +34,37 @@ export default abstract class Item {
 	}
 
 	public identify(): void {
-		this.getAffixes(AFFIXES_TYPES.IMPLICIT).forEach(affix => {
-			affix.assignValue();
-		});
-		this.getAffixes(AFFIXES_TYPES.PREFIX).forEach(affix => {
-			affix.assignValue();
-		});
-		this.getAffixes(AFFIXES_TYPES.SUFFIX).forEach(affix => {
+		this.walkThroughAffixes(affix => {
 			affix.assignValue();
 		});
 
 		this.identified = true;
 	}
 
+	public isIdentified(): boolean {
+		return this.identified;
+	}
+
 	public equip(player: Player): void {
-		this.getAffixes(AFFIXES_TYPES.IMPLICIT).forEach(affix => {
-			affix.equip(player);
-		});
-
-		this.getAffixes(AFFIXES_TYPES.PREFIX).forEach(affix => {
-			affix.equip(player);
-		});
-
-		this.getAffixes(AFFIXES_TYPES.SUFFIX).forEach(affix => {
+		this.walkThroughAffixes(affix => {
 			affix.equip(player);
 		});
 	}
 
 	public unequip(player: Player): void {
-		this.getAffixes(AFFIXES_TYPES.IMPLICIT).forEach(affix => {
-			affix.unequip(player);
-		});
-
-		this.getAffixes(AFFIXES_TYPES.PREFIX).forEach(affix => {
-			affix.unequip(player);
-		});
-
-		this.getAffixes(AFFIXES_TYPES.SUFFIX).forEach(affix => {
+		this.walkThroughAffixes(affix => {
 			affix.unequip(player);
 		});
 	}
 
 	protected getAffixes(type: (typeof AFFIXES_TYPES)[keyof typeof AFFIXES_TYPES]): Affix[] {
 		return this.affixes.filter(affix => affix.getType() === type);
+	}
+
+	protected walkThroughAffixes(callback: (affix: Affix) => void): void {
+		this.getAffixes(AFFIXES_TYPES.IMPLICIT).forEach(callback);
+		this.getAffixes(AFFIXES_TYPES.PREFIX).forEach(callback);
+		this.getAffixes(AFFIXES_TYPES.SUFFIX).forEach(callback);
 	}
 
 	protected static getAffixLimits(): Record<string, number> {
