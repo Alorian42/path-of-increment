@@ -1,13 +1,45 @@
 <template>
 	<div class="game-field">
-		<div class="zone">
-			<!-- Zone content goes here -->
-		</div>
-		<div class="character">
-			<!-- Character on the zone goes here -->
-		</div>
+		<div class="map" :style="mapStyle" @click="onClick" />
+		<div class="character" :style="characterStyle" />
 	</div>
 </template>
+
+<script setup lang="ts">
+import { computed, defineProps } from 'vue';
+import type { PropType } from 'vue';
+import type Map from '../../class/Map';
+import type Player from '../../class/Player';
+
+const props = defineProps({
+	map: {
+		type: Object as PropType<Map>,
+		required: true,
+	},
+	player: {
+		type: Object as PropType<Player>,
+		required: true,
+	},
+});
+
+const emit = defineEmits(['move']);
+
+const mapStyle = computed(() => {
+	return {
+		backgroundImage: `url(${props.map.getImage().href})`,
+	};
+});
+
+const characterStyle = computed(() => {
+	return {
+		backgroundImage: `url(${props.player.getImage().href})`,
+	};
+});
+
+const onClick = (): void => {
+	emit('move');
+};
+</script>
 
 <script lang="ts">
 export default {
@@ -23,19 +55,17 @@ export default {
 	position: relative;
 }
 
-.zone {
+.map {
 	width: 100%;
 	height: 100%;
-	background-color: #f0f0f0;
 }
 
 .character {
-	width: 50px;
-	height: 50px;
-	background-color: #ff0000;
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	bottom: 0;
+	right: 0;
+	width: 150px;
+	height: 150px;
+	background-size: contain;
 }
 </style>
