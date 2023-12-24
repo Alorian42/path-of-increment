@@ -1,0 +1,27 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": [
+		"airbnb-base",
+		"airbnb-typescript/base",
+		"standard-with-typescript",
+		"plugin:vue/vue3-recommended",
+		"plugin:prettier/recommended"
+	],
+	"parserOptions": {
+		"parser": "@typescript-eslint/parser",
+		"project": "./tsconfig.json",
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"plugins": ["vue", "prettier"],
+	"rules": {
+		"no-console": "off",
+		"semi": ["error", "always"],
+		"curly": ["error", "all"],
+		"keyword-spacing": ["error", { "before": true }]
+	}
+}
