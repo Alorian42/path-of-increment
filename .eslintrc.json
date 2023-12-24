@@ -15,13 +15,28 @@
 		"parser": "@typescript-eslint/parser",
 		"project": "./tsconfig.json",
 		"ecmaVersion": "latest",
-		"sourceType": "module"
+		"sourceType": "module",
+		"extraFileExtensions": [".vue"]
 	},
 	"plugins": ["vue", "prettier"],
 	"rules": {
 		"no-console": "off",
 		"semi": ["error", "always"],
 		"curly": ["error", "all"],
-		"keyword-spacing": ["error", { "before": true }]
-	}
+		"keyword-spacing": ["error", { "before": true }],
+		"import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+		"vue/block-order": ["error", { "order": ["template", "script", "style"] }]
+	},
+	"overrides": [
+		{
+			"files": ["*.vue"],
+			"parser": "vue-eslint-parser",
+			"parserOptions": {
+				"parser": {
+					"ts": "@typescript-eslint/parser"
+				}
+			},
+			"rules": {}
+		}
+	]
 }
