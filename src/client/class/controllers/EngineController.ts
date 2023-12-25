@@ -1,3 +1,4 @@
+import currencyController from './CurrencyController';
 import inventoryController from './InventoryController';
 import lootController from './LootController';
 
@@ -10,8 +11,14 @@ class EngineController {
 		}
 
 		// For testing purposes
-		const testItem = lootController.generateItem();
-		inventoryController.addItem(testItem);
+		// const testItem = lootController.generateItem();
+		// inventoryController.addItem(testItem);
+
+		for (let i = 0; i < 5; i += 1) {
+			const testItem2 = lootController.generateItem();
+			currencyController.useCurrency('transmute', testItem2);
+			inventoryController.addItem(testItem2);
+		}
 
 		this.initialized = true;
 	}

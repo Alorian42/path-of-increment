@@ -10,6 +10,10 @@ export default abstract class Affix {
 	private value!: number;
 	private valueAssigned: boolean = false;
 
+	protected valueRound: number = 0;
+	public static weight: number = 0; // from 0 to 100
+	public static itemLevelRequirement: number = 0;
+
 	constructor(id: number, name: string, valueMax: number, valueMin: number, type: TYPE_HELPER) {
 		this.id = id;
 		this.name = name;
@@ -43,7 +47,12 @@ export default abstract class Affix {
 	}
 
 	public assignValue(): void {
-		this.value = Math.floor(Math.random() * (this.valueMax - this.valueMin + 1) + this.valueMin);
+		if (this.valueAssigned) {
+			return;
+		}
+
+		const randomValue = Math.random() * (this.valueMax - this.valueMin) + this.valueMin;
+		this.value = Number(randomValue.toFixed(this.valueRound));
 		this.valueAssigned = true;
 	}
 

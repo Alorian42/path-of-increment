@@ -3,8 +3,10 @@
 		<div class="item-image" :class="{ 'item-image--equipped': item }" :style="styles" />
 		<div v-if="item" class="tooltip">
 			<div class="tooltip-content">
-				<div class="tooltip-title">{{ item.getName() }}</div>
-				<div class="tooltip-description">{{ item.getDescription() }}</div>
+				<div class="tooltip-title" :style="tooltipTitleStyle">
+					{{ item.getName() }} ({{ item.getItemLevel() }})
+				</div>
+				<div class="tooltip-description" v-html="item.getDescription()" />
 			</div>
 		</div>
 	</div>
@@ -14,6 +16,7 @@
 import { computed } from 'vue';
 import type { PropType } from 'vue';
 import type Item from '../../class/items/Item';
+import { ITEM_COLOR } from '../../config/item';
 
 const props = defineProps({
 	item: {
@@ -41,6 +44,16 @@ const styles = computed(() => {
 
 	return {
 		backgroundImage: `url(${props.item.getImage().href})`,
+	};
+});
+
+const tooltipTitleStyle = computed(() => {
+	if (props.item === undefined) {
+		return {};
+	}
+
+	return {
+		color: ITEM_COLOR[props.item.getRarity()],
 	};
 });
 

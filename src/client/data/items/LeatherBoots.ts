@@ -1,21 +1,25 @@
 import Boots from '../../class/items/Boots';
 import type { ITEM_RARITY_TYPE_VALUE } from '../../config/item';
 import DexterityBonusSmall from '../affixes/implicits/DexterityBonusSmall';
+import MinPhysDmgMultiSmall from '../affixes/prefixes/MinPhysDmgMultiSmall';
+import MinPhysDmgSmall from '../affixes/prefixes/MinPhysDmgSmall';
+import MaxPhysDmgMultiSmall from '../affixes/suffixes/MaxPhysDmgMultiSmall';
+import MaxPhysDmgSmall from '../affixes/suffixes/MaxPhysDmgSmall';
 
 export default class LeatherBoots extends Boots {
-	constructor(rarity: ITEM_RARITY_TYPE_VALUE) {
-		super(1, 'Leather Boots', 'leather_boots.png', rarity);
+	constructor(rarity: ITEM_RARITY_TYPE_VALUE, itemLevel: number) {
+		super(1, 'Leather Boots', 'leather_boots.png', rarity, itemLevel);
 	}
 
 	protected addImplicits(): void {
 		this.addAffix(new DexterityBonusSmall());
 	}
 
-	protected addPrefixes(): void {
-		// empty
+	protected setupPrefixPool(): void {
+		this.prefixAffixPool.push(MinPhysDmgSmall, MinPhysDmgMultiSmall);
 	}
 
-	protected addSuffixes(): void {
-		// empty
+	protected setupSuffixPool(): void {
+		this.suffixAffixPool.push(MaxPhysDmgSmall, MaxPhysDmgMultiSmall);
 	}
 }

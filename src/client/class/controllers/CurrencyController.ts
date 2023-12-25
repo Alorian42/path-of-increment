@@ -5,7 +5,7 @@ import type Item from '../items/Item';
 
 class CurrencyController {
 	private readonly currencies: Currency[] = currencyTypes.map(CurrencyType => new CurrencyType());
-	private readonly amount: number[] = Array(currencyTypes.length).fill(0);
+	private readonly amount: number[] = Array(currencyTypes.length).fill(10);
 
 	public get bank(): { [key in CURRENCY_TYPES_HELPER]: number } {
 		const types = this.currencies.map(currency => currency.getType());

@@ -11,7 +11,8 @@ export class LootController {
 
 	public generateItem(): Item {
 		const rarity = 'normal'; // @TODO: randomize
-		const item = new LeatherBoots(rarity); // @TODO: randomize
+		const itemLevel = 10; // @TODO: randomize
+		const item = new LeatherBoots(rarity, itemLevel); // @TODO: randomize
 
 		item.identify(); // @TODO: add mechanic to identify items
 

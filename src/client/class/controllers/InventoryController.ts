@@ -13,16 +13,15 @@ export class InventoryController {
 
 	public equipItem(item: Item): void {
 		const equippedItem = this.player.getEquippedItem(item.getType());
+		if (equippedItem !== undefined) {
+			this.unequipItem(item.getType());
+		}
 
 		this.player.equip(item);
 
 		const index = this.findItemIndex(item.getUUID());
 		if (index !== -1) {
 			this.inventory[index] = undefined;
-		}
-
-		if (equippedItem !== undefined) {
-			this.unequipItem(item.getType());
 		}
 	}
 
