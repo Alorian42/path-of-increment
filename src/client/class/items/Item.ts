@@ -1,6 +1,7 @@
 import { ITEM_IMPLICIT_LIMIT, ITEM_PREFIX_LIMIT, ITEM_SUFFIX_LIMIT } from '../../config/item';
 import type Player from '../player/Player';
 import type Affix from '../affixes/Affix';
+import type { ITEM_RARITY_TYPE_VALUE } from '../../config/item';
 import { AFFIXES_TYPES } from '../affixes/Affix';
 
 export default abstract class Item {
@@ -8,17 +9,21 @@ export default abstract class Item {
 	private readonly name: string;
 	private readonly image: string;
 
+	private readonly rarity: ITEM_RARITY_TYPE_VALUE;
 	private readonly affixes: Affix[] = [];
 
 	private readonly type: TYPE_HELPER;
 
 	private identified = false;
 
-	constructor(id: number, name: string, image: string, type: TYPE_HELPER) {
+	constructor(id: number, name: string, image: string, type: TYPE_HELPER, rarity: ITEM_RARITY_TYPE_VALUE) {
 		this.id = id;
 		this.name = name;
 		this.image = image;
 		this.type = type;
+		this.rarity = rarity;
+
+		this.addImplicits();
 	}
 
 	public getName(): string {
@@ -57,6 +62,8 @@ export default abstract class Item {
 		});
 	}
 
+	protected abstract addImplicits(): void;
+
 	protected getAffixes(type: (typeof AFFIXES_TYPES)[keyof typeof AFFIXES_TYPES]): Affix[] {
 		return this.affixes.filter(affix => affix.getType() === type);
 	}
@@ -67,18 +74,18 @@ export default abstract class Item {
 		this.getAffixes(AFFIXES_TYPES.SUFFIX).forEach(callback);
 	}
 
-	protected static getAffixLimits(): Record<string, number> {
+	protected getAffixLimits(): Record<string, number> {
 		return {
-			[AFFIXES_TYPES.IMPLICIT]: ITEM_IMPLICIT_LIMIT,
-			[AFFIXES_TYPES.PREFIX]: ITEM_PREFIX_LIMIT,
-			[AFFIXES_TYPES.SUFFIX]: ITEM_SUFFIX_LIMIT,
+			[AFFIXES_TYPES.IMPLICIT]: ITEM_IMPLICIT_LIMIT[this.rarity],
+			[AFFIXES_TYPES.PREFIX]: ITEM_PREFIX_LIMIT[this.rarity],
+			[AFFIXES_TYPES.SUFFIX]: ITEM_SUFFIX_LIMIT[this.rarity],
 		};
 	}
 
 	protected canAddAffix(affix: Affix): boolean {
 		const affixFamily = this.getAffixes(affix.getType());
 
-		return affixFamily.length < Item.getAffixLimits()[affix.getType()];
+		return affixFamily.length < this.getAffixLimits()[affix.getType()];
 	}
 
 	protected addAffix(affix: Affix): void {

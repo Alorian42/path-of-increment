@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import type { PropType } from 'vue';
 import type Player from '../../class/player/Player';
 

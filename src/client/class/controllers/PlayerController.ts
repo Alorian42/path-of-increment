@@ -9,7 +9,7 @@ export default class PlayerController {
 	}
 
 	public test(): void {
-		const boots = new LeatherBoots();
+		const boots = new LeatherBoots('normal');
 		boots.identify();
 
 		this.player.equip(boots);
