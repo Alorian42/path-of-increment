@@ -3,7 +3,7 @@
 		<TopMenu />
 		<div class="content">
 			<Field v-if="currentMap" :map="currentMap" :player="currentPlayer" @finish="onFinish" />
-			<button @click="onStart">Start Map</button>
+			<MapSelect v-else :maps="mapPool" @start="onStart" />
 			<Character :key="inventoryKey" :player="currentPlayer" />
 		</div>
 	</div>
@@ -14,20 +14,22 @@ import { type Ref, computed, ref } from 'vue';
 import Character from './Character.vue';
 import Field from './Field.vue';
 import TopMenu from './TopMenu.vue';
+import MapSelect from '../Map/MapSelect.vue';
 import mapControllerNonReactive from '../../class/controllers/MapController';
 import playerControllerNonReactive from '../../class/controllers/PlayerController';
 import inventoryController from '../../class/controllers/InventoryController';
 import lootController from '../../class/controllers/LootController';
 import engineController from '../../class/controllers/EngineController';
 import '../../class/controllers/CurrencyController';
-import ShoreMap from '../../data/maps/Shore';
 import type Map from '../../class/Map';
+import { MAP_POOL } from '../../config/maps';
 
 export default {
 	components: {
 		Character,
 		Field,
 		TopMenu,
+		MapSelect,
 	},
 	setup() {
 		const mapController = ref(mapControllerNonReactive);
@@ -48,8 +50,9 @@ export default {
 			currentMap,
 			currentPlayer,
 			inventoryKey,
-			onStart: () => {
-				engineController.startMap(ShoreMap);
+			mapPool: MAP_POOL.map((Map: any) => new Map()), // @TODO filter by accessebility
+			onStart: (map: Map) => {
+				engineController.startMap(Object.getPrototypeOf(map).constructor as typeof Map);
 				currentMap.value = mapController.value.getCurrentMap();
 			},
 			onFinish: () => {
@@ -73,7 +76,14 @@ export default {
 .content {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	flex: 1;
+
+	button {
+		width: 100px;
+		height: 50px;
+		margin: auto;
+	}
 }
 
 .character {
