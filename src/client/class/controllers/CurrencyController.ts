@@ -34,10 +34,14 @@ class CurrencyController {
 
 		const currency = this.currencies.find(cur => cur.getType() === type);
 		if (currency !== undefined) {
-			currency.apply(item);
+			try {
+				currency.apply(item);
 
-			const index = this.currencies.findIndex(cur => cur.getType() === type);
-			this.amount[index] -= 1;
+				const index = this.currencies.findIndex(cur => cur.getType() === type);
+				this.amount[index] -= 1;
+			} catch (e) {
+				console.error(e); // @TODO floating error
+			}
 		}
 	}
 }

@@ -70,32 +70,44 @@ export default class Player {
 	}
 
 	public get strength(): number {
-		return (this.stats.strength + this.stats.additionalStrength) * this.stats.multiplierStrength;
+		return parseFloat(
+			Number((this.stats.strength + this.stats.additionalStrength) * this.stats.multiplierStrength).toFixed(
+				2
+			)
+		);
 	}
 
 	public get dexterity(): number {
-		return (this.stats.dexterity + this.stats.additionalDexterity) * this.stats.multiplierDexterity;
+		return parseFloat(
+			Number(
+				(this.stats.dexterity + this.stats.additionalDexterity) * this.stats.multiplierDexterity
+			).toFixed(2)
+		);
 	}
 
 	public get intelligence(): number {
-		return (this.stats.intelligence + this.stats.additionalIntelligence) * this.stats.multiplierIntelligence;
+		return parseFloat(
+			Number(
+				(this.stats.intelligence + this.stats.additionalIntelligence) * this.stats.multiplierIntelligence
+			).toFixed(2)
+		);
 	}
 
 	public get physicalDamageMin(): number {
-		return (
-			// Get base min physical damage and add additional min physical damage
-			(this.stats.physicalDamageMin + this.stats.additionalPhysicalDamageMin) *
-			// Multiply by physical damage multiplier
-			this.stats.multiplierPhysicalDamageMin
+		return parseFloat(
+			Number(
+				(this.stats.physicalDamageMin + this.stats.additionalPhysicalDamageMin) *
+					this.stats.multiplierPhysicalDamageMin
+			).toFixed(2)
 		);
 	}
 
 	public get physicalDamageMax(): number {
-		return (
-			// Get base max physical damage and add additional max physical damage
-			(this.stats.physicalDamageMax + this.stats.additionalPhysicalDamageMax) *
-			// Multiply by physical damage multiplier
-			this.stats.multiplierPhysicalDamageMax
+		return parseFloat(
+			Number(
+				(this.stats.physicalDamageMax + this.stats.additionalPhysicalDamageMax) *
+					this.stats.multiplierPhysicalDamageMax
+			).toFixed(2)
 		);
 	}
 

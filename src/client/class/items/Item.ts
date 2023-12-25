@@ -53,7 +53,7 @@ export default abstract class Item {
 	}
 
 	public getName(): string {
-		return this.name;
+		return `(${this.rarity}) ${this.name}`;
 	}
 
 	public getDescription(): string {

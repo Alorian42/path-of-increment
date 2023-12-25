@@ -10,7 +10,7 @@ export default class TransmuteCurrency extends Currency {
 
 	public apply(item: Item): Item {
 		if (item.getRarity() !== ITEM_RARITY.NORMAL) {
-			throw new Error('Only applicable to normal items');
+			throw new Error(`Only applicable to normal items ${item.getRarity()}`);
 		}
 
 		// Make it magic

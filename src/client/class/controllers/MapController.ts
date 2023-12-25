@@ -4,9 +4,10 @@ import type Map from '../Map';
 
 class MapController {
 	private CurrentMapClass = ShoreMap;
+	private readonly mapLevel: number = 10;
 
 	getCurrentMap(): Map {
-		return new this.CurrentMapClass();
+		return new this.CurrentMapClass(this.mapLevel);
 	}
 
 	goToMudFlats(): void {

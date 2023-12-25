@@ -1,6 +1,7 @@
 import currencyController from './CurrencyController';
 import inventoryController from './InventoryController';
 import lootController from './LootController';
+import mapController from './MapController';
 
 class EngineController {
 	private initialized = false;
@@ -10,12 +11,8 @@ class EngineController {
 			return;
 		}
 
-		// For testing purposes
-		// const testItem = lootController.generateItem();
-		// inventoryController.addItem(testItem);
-
 		for (let i = 0; i < 5; i += 1) {
-			const testItem2 = lootController.generateItem();
+			const testItem2 = lootController.generateItem(mapController.getCurrentMap());
 			currencyController.useCurrency('transmute', testItem2);
 			inventoryController.addItem(testItem2);
 		}

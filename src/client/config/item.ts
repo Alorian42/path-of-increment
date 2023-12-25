@@ -39,3 +39,21 @@ export const ITEM_COLOR: {
 	[ITEM_RARITY.RARE]: '#FFFF77',
 	[ITEM_RARITY.UNIQUE]: '#AF6025',
 } as const;
+
+export const ITEM_RARITY_CHANCES: {
+	[key in ITEM_RARITY_TYPE_VALUE]: number;
+} = {
+	[ITEM_RARITY.NORMAL]: 0.69,
+	[ITEM_RARITY.MAGIC]: 0.2,
+	[ITEM_RARITY.RARE]: 0.1,
+	[ITEM_RARITY.UNIQUE]: 0.01,
+} as const;
+
+export const ITEM_AFFIXES_GURANTEED: {
+	[key in ITEM_RARITY_TYPE_VALUE]: number;
+} = {
+	[ITEM_RARITY.NORMAL]: 0,
+	[ITEM_RARITY.MAGIC]: 1,
+	[ITEM_RARITY.RARE]: 2,
+	[ITEM_RARITY.UNIQUE]: 6,
+} as const;
