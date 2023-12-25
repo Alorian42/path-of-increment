@@ -1,6 +1,6 @@
 <template>
 	<div class="tile" @click="onClick">
-		<div class="item-image" :style="styles" />
+		<div class="item-image" :class="{ 'item-image--equipped': item }" :style="styles" />
 		<div v-if="item" class="tooltip">
 			<div class="tooltip-content">
 				<div class="tooltip-title">{{ item.getName() }}</div>
@@ -73,11 +73,15 @@ export default {
 	background-size: contain;
 }
 
+.item-image--equipped {
+	cursor: pointer;
+}
+
 .tooltip {
 	display: none;
 	position: absolute;
 	top: 100%;
-	left: 0;
+	left: -125px;
 	width: 300px;
 	background-color: #fff;
 	border: 1px solid #ccc;

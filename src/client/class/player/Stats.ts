@@ -29,10 +29,10 @@ export default class Stats {
 			accuracy: 0,
 			additionalAccuracy: 0,
 			multiplierAccuracy: 1,
-			physicalDamageMin: 0,
+			physicalDamageMin: 1,
 			additionalPhysicalDamageMin: 0,
 			multiplierPhysicalDamageMin: 1,
-			physicalDamageMax: 0,
+			physicalDamageMax: 10,
 			additionalPhysicalDamageMax: 0,
 			multiplierPhysicalDamageMax: 1,
 		};
@@ -73,6 +73,6 @@ export const PLAYER_STATS = {
 	PHYSICAL_DAMAGE_MAX: 'physicalDamageMax',
 	ADDITIONAL_PHYSICAL_DAMAGE_MAX: 'additionalPhysicalDamageMax',
 	MULTIPLIER_PHYSICAL_DAMAGE_MAX: 'multiplierPhysicalDamageMax',
-};
+} as const;
 
 export type PLAYER_STATS_TYPE_HELPER = (typeof PLAYER_STATS)[keyof typeof PLAYER_STATS];

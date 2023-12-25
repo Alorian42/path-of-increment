@@ -124,9 +124,14 @@ export default abstract class Item {
 }
 
 export const ITEM_TYPES = {
-	BODY_ARMOR: 'body_armor',
+	HELMET: 'helmet',
 	WEAPON: 'weapon',
+	BODY_ARMOR: 'body_armor',
+	GLOVES: 'gloves',
 	BOOTS: 'boots',
+	BELT: 'belt',
+	RING: 'ring',
+	AMULET: 'amulet',
 } as const;
 
 type TYPE_HELPER = (typeof ITEM_TYPES)[keyof typeof ITEM_TYPES];

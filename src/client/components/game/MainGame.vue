@@ -13,11 +13,12 @@ import { computed, ref } from 'vue';
 import Character from './Character.vue';
 import Field from './Field.vue';
 import TopMenu from './TopMenu.vue';
-import MapController from '../../class/controllers/MapController';
-import PlayerController from '../../class/controllers/PlayerController';
+import mapControllerNonReactive from '../../class/controllers/MapController';
+import playerControllerNonReactive from '../../class/controllers/PlayerController';
 import inventoryController from '../../class/controllers/InventoryController';
 import lootController from '../../class/controllers/LootController';
 import engineController from '../../class/controllers/EngineController';
+import '../../class/controllers/CurrencyController';
 
 export default {
 	components: {
@@ -26,8 +27,8 @@ export default {
 		TopMenu,
 	},
 	setup() {
-		const mapController = ref(new MapController());
-		const playerController = ref(new PlayerController());
+		const mapController = ref(mapControllerNonReactive);
+		const playerController = ref(playerControllerNonReactive);
 
 		inventoryController.setPlayer(playerController.value.getPlayer());
 		lootController.setPlayer(playerController.value.getPlayer());

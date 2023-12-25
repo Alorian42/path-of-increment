@@ -1,23 +1,28 @@
 <template>
 	<div class="inventory">
 		<h2>Equipped</h2>
-		<div v-for="type in itemTypes" :key="type">
-			<inventory-tile :item="player.getEquippedItem(type)" is-equipped @unequip="onUnequip" />
+		<div class="equipped-wrapper">
+			<div v-for="type in itemTypes" :key="type">
+				{{ type }}
+				<inventory-tile :item="player.getEquippedItem(type)" is-equipped @unequip="onUnequip" />
+			</div>
 		</div>
 
 		<h2>Inventory</h2>
-		<inventory-tile
-			v-for="(item, index) in inventory"
-			:key="index"
-			:item="item"
-			is-inventory
-			@equip="onEquip"
-		/>
+		<div class="inventory-wrapper">
+			<inventory-tile
+				v-for="(item, index) in inventory"
+				:key="index"
+				:item="item"
+				is-inventory
+				@equip="onEquip"
+			/>
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, onMounted } from 'vue';
+import { computed, reactive } from 'vue';
 import type { PropType } from 'vue';
 import type Player from '../../class/player/Player';
 import type Item from '../../class/items/Item';
@@ -61,5 +66,15 @@ export default {
 </script>
 
 <style scoped>
-/* Component styles go here */
+.equipped-wrapper {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.inventory-wrapper {
+	display: flex;
+	gap: 5px;
+	flex-wrap: wrap;
+}
 </style>

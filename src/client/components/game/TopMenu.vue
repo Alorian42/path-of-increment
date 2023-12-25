@@ -1,21 +1,27 @@
 <template>
 	<div class="top-menu">
-		<div class="character-info">
-			<h2>Character Information</h2>
-			<!-- Display character information here -->
-		</div>
 		<div class="currency-info">
-			<h2>Currency Information</h2>
-			<!-- Display currency information here -->
+			<currency-item v-for="currency in currencies" :key="currency.getType()" :currency="currency" />
+			<router-link :to="{ name: 'main-menu' }">Go back to Main Menu</router-link>
 		</div>
-		<router-link :to="{ name: 'main-menu' }">Go back to Main Menu</router-link>
 	</div>
 </template>
+
+<script setup lang="ts">
+import { reactive } from 'vue';
+import CurrencyItem from '../currency/CurrencyItem.vue';
+import currencyController from '../../class/controllers/CurrencyController';
+import type Currency from '../../class/Currency';
+
+const currencies = reactive(currencyController.getCurrencies()) as Currency[];
+</script>
 
 <script lang="ts">
 export default {
 	name: 'TopMenu',
-	// Add component logic here
+	components: {
+		CurrencyItem,
+	},
 };
 </script>
 
@@ -28,10 +34,11 @@ export default {
 	background-color: #f2f2f2;
 }
 
-.character-info,
 .currency-info {
-	flex: 1;
-	margin: 0 10px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 h2 {

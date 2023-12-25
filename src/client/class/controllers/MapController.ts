@@ -2,7 +2,7 @@ import MudFlatsMap from '../../data/maps/MudFlats';
 import ShoreMap from '../../data/maps/Shore';
 import type Map from '../Map';
 
-export default class MapController {
+class MapController {
 	private CurrentMapClass = ShoreMap;
 
 	getCurrentMap(): Map {
@@ -13,3 +13,6 @@ export default class MapController {
 		this.CurrentMapClass = MudFlatsMap;
 	}
 }
+
+const mapController = new MapController();
+export default mapController;

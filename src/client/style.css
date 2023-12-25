@@ -4,4 +4,10 @@ body {
 	place-items: center;
 	min-width: 320px;
 	min-height: 100vh;
+	-ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+
+	&::-webkit-scrollbar {
+		display: none; /* Safari and Chrome */
+	}
 }

@@ -4,7 +4,10 @@
 		<inventory :player="player" />
 		<div class="character-stats">
 			<h2>Stats</h2>
-			<div v-for="(value, name) in player.getStats()" :key="name" class="stat">{{ name }}: {{ value }}</div>
+			<div>Strength: {{ player.strength }}</div>
+			<div>Dexterity: {{ player.dexterity }}</div>
+			<div>Intelligence: {{ player.intelligence }}</div>
+			<div>Physical Damage: {{ player.physicalDamageMin }} - {{ player.physicalDamageMax }}</div>
 		</div>
 	</div>
 </template>
@@ -32,5 +35,8 @@ export default {
 </script>
 
 <style scoped>
-/* Component styles go here */
+.game-character {
+	min-width: 500px;
+	max-width: 500px;
+}
 </style>
