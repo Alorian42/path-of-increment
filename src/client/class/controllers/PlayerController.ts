@@ -2,7 +2,7 @@ import LeatherBoots from '../../data/items/LeatherBoots';
 import Player from '../player/Player';
 
 export default class PlayerController {
-	private readonly player: Player = new Player('Witch', 'witch.png');
+	private readonly player: Player = new Player('Witch', 'occultist.png');
 
 	public getPlayer(): Player {
 		return this.player;
