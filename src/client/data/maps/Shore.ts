@@ -10,7 +10,7 @@ import LeatherHelmet from '../items/LeatherHelmet';
 import WoodenWand from '../items/WoodenWand';
 
 export default class ShoreMap extends Map {
-	constructor(mapLevel: number) {
+	constructor() {
 		const lootTable = [
 			LeatherBoots,
 			LeatherChest,
@@ -21,6 +21,10 @@ export default class ShoreMap extends Map {
 			IronRing,
 			WoodenWand,
 		] as unknown as Array<typeof Item>;
-		super('Shore', '01.png', mapLevel, lootTable);
+		super('Shore', '01.png', 10, lootTable);
+
+		this.attackDifficulty = 2;
+		this.defenseDifficulty = 2;
+		this.duration = 60;
 	}
 }

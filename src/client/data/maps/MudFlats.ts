@@ -10,7 +10,7 @@ import LeatherHelmet from '../items/LeatherHelmet';
 import WoodenWand from '../items/WoodenWand';
 
 export default class MudFlatsMap extends Map {
-	constructor(mapLevel: number) {
+	constructor() {
 		const lootTable = [
 			LeatherBoots,
 			LeatherChest,
@@ -21,6 +21,6 @@ export default class MudFlatsMap extends Map {
 			IronRing,
 			WoodenWand,
 		] as unknown as Array<typeof Item>;
-		super('MudFlats', '02.png', mapLevel, lootTable);
+		super('MudFlats', '02.png', 15, lootTable);
 	}
 }

@@ -2,14 +2,15 @@
 	<div class="main-game">
 		<TopMenu />
 		<div class="content">
-			<Field :map="currentMap" :player="currentPlayer" @move="onMove" />
-			<Character :player="currentPlayer" />
+			<Field v-if="currentMap" :map="currentMap" :player="currentPlayer" @finish="onFinish" />
+			<button @click="onStart">Start Map</button>
+			<Character :key="inventoryKey" :player="currentPlayer" />
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { computed, ref } from 'vue';
+import { type Ref, computed, ref } from 'vue';
 import Character from './Character.vue';
 import Field from './Field.vue';
 import TopMenu from './TopMenu.vue';
@@ -19,6 +20,8 @@ import inventoryController from '../../class/controllers/InventoryController';
 import lootController from '../../class/controllers/LootController';
 import engineController from '../../class/controllers/EngineController';
 import '../../class/controllers/CurrencyController';
+import ShoreMap from '../../data/maps/Shore';
+import type Map from '../../class/Map';
 
 export default {
 	components: {
@@ -29,15 +32,14 @@ export default {
 	setup() {
 		const mapController = ref(mapControllerNonReactive);
 		const playerController = ref(playerControllerNonReactive);
+		const inventoryKey = ref(0);
 
 		inventoryController.setPlayer(playerController.value.getPlayer());
 		lootController.setPlayer(playerController.value.getPlayer());
 
 		engineController.init();
 
-		const currentMap = computed(() => {
-			return mapController.value.getCurrentMap();
-		});
+		const currentMap = ref(null) as Ref<Map | null>;
 		const currentPlayer = computed(() => {
 			return playerController.value.getPlayer();
 		});
@@ -45,8 +47,15 @@ export default {
 		return {
 			currentMap,
 			currentPlayer,
-			onMove(): void {
-				mapController.value.goToMudFlats();
+			inventoryKey,
+			onStart: () => {
+				engineController.startMap(ShoreMap);
+				currentMap.value = mapController.value.getCurrentMap();
+			},
+			onFinish: () => {
+				engineController.finishMap();
+				currentMap.value = null;
+				inventoryKey.value += 1;
 			},
 		};
 	},

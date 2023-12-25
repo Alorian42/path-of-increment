@@ -6,6 +6,12 @@ export default abstract class Map {
 	private readonly mapLevel: number = 1;
 	private readonly lootTable: Array<typeof Item>;
 
+	protected attackDifficulty: number = 1;
+	protected defenseDifficulty: number = 1;
+	protected duration: number = 60; // in seconds
+
+	public endTimestamp: number = 0;
+
 	constructor(name: string, image: string, mapLevel: number, lootTable: Array<typeof Item>) {
 		this.name = name;
 		this.image = image;
@@ -27,5 +33,17 @@ export default abstract class Map {
 
 	public getLootTable(): Array<typeof Item> {
 		return this.lootTable;
+	}
+
+	public getAttackDifficulty(): number {
+		return this.attackDifficulty;
+	}
+
+	public getDefenseDifficulty(): number {
+		return this.defenseDifficulty;
+	}
+
+	public getDuration(): number {
+		return this.duration;
 	}
 }

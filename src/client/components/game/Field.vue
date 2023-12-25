@@ -1,13 +1,13 @@
 <template>
 	<div class="game-field">
-		<div class="label">{{ map.getName() }}</div>
-		<div class="map" :style="mapStyle" @click="onClick" />
+		<div class="label">{{ map.getName() }} {{ Number(timeToEnd / 1000 + 1).toFixed(0) }} seconds left</div>
+		<div class="map" :style="mapStyle" />
 		<div class="character" :style="characterStyle" />
 	</div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import type Map from '../../class/Map';
 import type Player from '../../class/player/Player';
@@ -23,7 +23,7 @@ const props = defineProps({
 	},
 });
 
-const emit = defineEmits(['move']);
+const emit = defineEmits(['finish']);
 
 const mapStyle = computed(() => {
 	return {
@@ -37,9 +37,21 @@ const characterStyle = computed(() => {
 	};
 });
 
-const onClick = (): void => {
-	emit('move');
-};
+const currentTime = ref(Date.now());
+
+const timeToEnd = computed(() => {
+	return props.map.endTimestamp - currentTime.value;
+});
+
+setInterval(() => {
+	currentTime.value = Date.now();
+}, 1000);
+
+watch(timeToEnd, value => {
+	if (value <= 0) {
+		emit('finish');
+	}
+});
 </script>
 
 <script lang="ts">

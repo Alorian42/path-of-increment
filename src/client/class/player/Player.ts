@@ -116,4 +116,8 @@ export default class Player {
 			Math.random() * (this.physicalDamageMax - this.physicalDamageMin + 1) + this.physicalDamageMin
 		);
 	}
+
+	public calculateDefense(): number {
+		return 1;
+	}
 }

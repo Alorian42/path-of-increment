@@ -1,17 +1,19 @@
-import MudFlatsMap from '../../data/maps/MudFlats';
-import ShoreMap from '../../data/maps/Shore';
 import type Map from '../Map';
 
 class MapController {
-	private CurrentMapClass = ShoreMap;
-	private readonly mapLevel: number = 10;
+	private currentMap!: Map | null;
 
-	getCurrentMap(): Map {
-		return new this.CurrentMapClass(this.mapLevel);
+	public getCurrentMap(): Map | null {
+		return this.currentMap;
 	}
 
-	goToMudFlats(): void {
-		this.CurrentMapClass = MudFlatsMap;
+	public setCurrentMap(MapClass: any): void {
+		if (MapClass === null) {
+			this.currentMap = null;
+			return;
+		}
+
+		this.currentMap = new MapClass();
 	}
 }
 
