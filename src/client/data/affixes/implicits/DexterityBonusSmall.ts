@@ -5,7 +5,7 @@ export default class DexterityBonusSmall extends Implicit {
 	constructor() {
 		const text = 'Increases Dexterity by';
 
-		super(1, text, 1, 5);
+		super(1, text, 5, 1);
 	}
 
 	public equip(player: Player): void {

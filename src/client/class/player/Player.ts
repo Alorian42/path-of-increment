@@ -1,13 +1,29 @@
 import type Item from '../items/Item';
-import type { ITEM_TYPES } from '../items/Item';
+import { ITEM_TYPES } from '../items/Item';
 import Stats from './Stats';
 import type { PLAYER_STATS_TYPE_HELPER } from './Stats';
+
+type ITEM_TYPES_HELPER = (typeof ITEM_TYPES)[keyof typeof ITEM_TYPES];
 
 export default class Player {
 	private readonly name: string;
 	private readonly image: string;
 
-	private readonly items: Record<Partial<(typeof ITEM_TYPES)[keyof typeof ITEM_TYPES]>, Item | undefined> = {};
+	private readonly items: {
+		[key in ITEM_TYPES_HELPER]?: Item;
+	} = Array.from(Object.values(ITEM_TYPES)).reduce(
+		(
+			acc: {
+				[key in ITEM_TYPES_HELPER]?: Item;
+			},
+			type: ITEM_TYPES_HELPER
+		) => {
+			acc[type] = undefined;
+			return acc;
+		},
+		{}
+	);
+
 	private readonly stats: Record<PLAYER_STATS_TYPE_HELPER, number> = Stats.getDefaults();
 
 	constructor(name: string, image: string) {
@@ -41,5 +57,15 @@ export default class Player {
 
 	public getStats(): Record<PLAYER_STATS_TYPE_HELPER, number> {
 		return this.stats;
+	}
+
+	public getEquippedItem(type: (typeof ITEM_TYPES)[keyof typeof ITEM_TYPES]): Item | undefined {
+		return this.items[type];
+	}
+
+	public getItems(): {
+		[key in ITEM_TYPES_HELPER]?: Item;
+	} {
+		return this.items;
 	}
 }

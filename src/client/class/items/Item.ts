@@ -5,6 +5,7 @@ import type { ITEM_RARITY_TYPE_VALUE } from '../../config/item';
 import { AFFIXES_TYPES } from '../affixes/Affix';
 
 export default abstract class Item {
+	private readonly uuid: string;
 	private readonly id: number;
 	private readonly name: string;
 	private readonly image: string;
@@ -17,6 +18,7 @@ export default abstract class Item {
 	private identified = false;
 
 	constructor(id: number, name: string, image: string, type: TYPE_HELPER, rarity: ITEM_RARITY_TYPE_VALUE) {
+		this.uuid = crypto.randomUUID();
 		this.id = id;
 		this.name = name;
 		this.image = image;
@@ -24,14 +26,35 @@ export default abstract class Item {
 		this.rarity = rarity;
 
 		this.addImplicits();
+		this.addPrefixes();
+		this.addSuffixes();
+	}
+
+	public getUUID(): string {
+		return this.uuid;
 	}
 
 	public getName(): string {
 		return this.name;
 	}
 
+	public getDescription(): string {
+		let description = '';
+
+		this.walkThroughAffixes(
+			affix => {
+				description += `${affix.toString()}\n`;
+			},
+			() => {
+				description += '\n';
+			}
+		);
+
+		return description;
+	}
+
 	public getImage(): URL {
-		return new URL(`../assets/items/${this.image}`, import.meta.url);
+		return new URL(`../../assets/items/${this.image}`, import.meta.url);
 	}
 
 	public getType(): TYPE_HELPER {
@@ -63,15 +86,20 @@ export default abstract class Item {
 	}
 
 	protected abstract addImplicits(): void;
+	protected abstract addPrefixes(): void;
+	protected abstract addSuffixes(): void;
 
 	protected getAffixes(type: (typeof AFFIXES_TYPES)[keyof typeof AFFIXES_TYPES]): Affix[] {
 		return this.affixes.filter(affix => affix.getType() === type);
 	}
 
-	protected walkThroughAffixes(callback: (affix: Affix) => void): void {
+	protected walkThroughAffixes(callback: (affix: Affix) => void, callback2?: () => void): void {
 		this.getAffixes(AFFIXES_TYPES.IMPLICIT).forEach(callback);
+		callback2?.();
 		this.getAffixes(AFFIXES_TYPES.PREFIX).forEach(callback);
+		callback2?.();
 		this.getAffixes(AFFIXES_TYPES.SUFFIX).forEach(callback);
+		callback2?.();
 	}
 
 	protected getAffixLimits(): Record<string, number> {
@@ -99,6 +127,6 @@ export const ITEM_TYPES = {
 	BODY_ARMOR: 'body_armor',
 	WEAPON: 'weapon',
 	BOOTS: 'boots',
-};
+} as const;
 
 type TYPE_HELPER = (typeof ITEM_TYPES)[keyof typeof ITEM_TYPES];

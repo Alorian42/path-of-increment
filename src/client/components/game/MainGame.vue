@@ -4,8 +4,6 @@
 		<div class="content">
 			<Field :map="currentMap" :player="currentPlayer" @move="onMove" />
 			<Character :player="currentPlayer" />
-			<button @click="test">Equip Boots</button>
-			<button @click="test2">Unequip Boots</button>
 		</div>
 	</div>
 </template>
@@ -17,6 +15,9 @@ import Field from './Field.vue';
 import TopMenu from './TopMenu.vue';
 import MapController from '../../class/controllers/MapController';
 import PlayerController from '../../class/controllers/PlayerController';
+import inventoryController from '../../class/controllers/InventoryController';
+import lootController from '../../class/controllers/LootController';
+import engineController from '../../class/controllers/EngineController';
 
 export default {
 	components: {
@@ -27,6 +28,11 @@ export default {
 	setup() {
 		const mapController = ref(new MapController());
 		const playerController = ref(new PlayerController());
+
+		inventoryController.setPlayer(playerController.value.getPlayer());
+		lootController.setPlayer(playerController.value.getPlayer());
+
+		engineController.init();
 
 		const currentMap = computed(() => {
 			return mapController.value.getCurrentMap();
@@ -40,12 +46,6 @@ export default {
 			currentPlayer,
 			onMove(): void {
 				mapController.value.goToMudFlats();
-			},
-			test(): void {
-				playerController.value.test();
-			},
-			test2(): void {
-				playerController.value.test2();
 			},
 		};
 	},

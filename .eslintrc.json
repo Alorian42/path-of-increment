@@ -25,7 +25,8 @@
 		"curly": ["error", "all"],
 		"keyword-spacing": ["error", { "before": true }],
 		"import/no-extraneous-dependencies": "off",
-		"vue/block-order": ["error", { "order": ["template", "script", "style"] }]
+		"vue/block-order": ["error", { "order": ["template", "script", "style"] }],
+		"class-methods-use-this": "off"
 	},
 	"overrides": [
 		{

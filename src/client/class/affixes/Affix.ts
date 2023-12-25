@@ -52,7 +52,7 @@ export default abstract class Affix {
 	}
 
 	public toString(): string {
-		return `${this.name} ${this.value} [${this.valueMin} - ${this.valueMax}]]`;
+		return `[${this.getType()}] ${this.name} ${this.value} (${this.valueMin} - ${this.valueMax})`;
 	}
 
 	public abstract equip(player: Player): void;

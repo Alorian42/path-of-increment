@@ -1,4 +1,3 @@
-import LeatherBoots from '../../data/items/LeatherBoots';
 import Player from '../player/Player';
 
 export default class PlayerController {
@@ -6,16 +5,5 @@ export default class PlayerController {
 
 	public getPlayer(): Player {
 		return this.player;
-	}
-
-	public test(): void {
-		const boots = new LeatherBoots('normal');
-		boots.identify();
-
-		this.player.equip(boots);
-	}
-
-	public test2(): void {
-		this.player.unequip('boots');
 	}
 }
