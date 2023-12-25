@@ -44,6 +44,13 @@ class CurrencyController {
 			}
 		}
 	}
+
+	public addCurrency(type: CURRENCY_TYPES_HELPER, amount: number): void {
+		const index = this.currencies.findIndex(cur => cur.getType() === type);
+		if (index !== -1) {
+			this.amount[index] += amount;
+		}
+	}
 }
 
 const currencyTypes = [TransmuteCurrency];

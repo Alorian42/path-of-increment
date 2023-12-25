@@ -4,6 +4,7 @@ import lootController from './LootController';
 import mapController from './MapController';
 import playerController from './PlayerController';
 import type Map from '../Map';
+import { CURRENCY_CHANCES, type CURRENCY_TYPES_HELPER } from '../../config/currency';
 
 class EngineController {
 	private initialized = false;
@@ -47,11 +48,29 @@ class EngineController {
 	}
 
 	public awardLoot(map: Map | null): void {
+		// Awarding items
 		const amount = Math.floor(Math.random() * 3) + 1;
 		for (let i = 0; i < amount; i += 1) {
 			const item = lootController.generateItem(map ?? undefined);
 			inventoryController.addItem(item);
 		}
+
+		// Awarding currency
+		const currencyTypes = currencyController.getCurrencies().map(cur => cur.getType());
+		const chances = CURRENCY_CHANCES;
+
+		currencyTypes.forEach(type => {
+			const dice = Math.random();
+			if (dice < chances[type]) {
+				this.awardCurrency(type);
+			}
+		});
+	}
+
+	private awardCurrency(currencyType: CURRENCY_TYPES_HELPER): void {
+		const amount = Math.floor(Math.random() * 3) + 1;
+
+		currencyController.addCurrency(currencyType, amount);
 	}
 
 	private calculateDurationModifier(map: Map): number {
@@ -63,9 +82,6 @@ class EngineController {
 
 		const attackModifier = mapAttackDifficutly / attack;
 		const defenseModifier = mapDefenseDifficutly / defense;
-
-		console.log('Attack modifier', attackModifier);
-		console.log('Defense modifier', defenseModifier);
 
 		return attackModifier + defenseModifier;
 	}
