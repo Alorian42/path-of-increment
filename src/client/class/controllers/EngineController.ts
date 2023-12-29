@@ -5,6 +5,9 @@ import mapController from './MapController';
 import playerController from './PlayerController';
 import type Map from '../map/Map';
 import { CURRENCY_CHANCES, type CURRENCY_TYPES_HELPER } from '../../config/currency';
+import type MapZone from '../map/MapZone';
+import type Player from '../player/Player';
+import Calculator from './Calculator';
 
 class EngineController {
 	private initialized = false;
@@ -32,10 +35,13 @@ class EngineController {
 		mapController.startMap(map);
 
 		const currentMap = mapController.getCurrentMap();
+		const currentZone = mapController.getCurrentZone();
 
-		if (currentMap !== null) {
+		if (currentMap !== null && currentZone !== null) {
 			this.isMapRunning = true;
-			const duration = currentMap.getMinDuration() * this.calculateDurationModifier(currentMap) * 1000;
+			const duration =
+				currentMap.getMinDuration() * this.calculateDurationModifier(currentMap, currentZone) * 1000;
+			console.log('duration', duration);
 
 			currentMap.endTimestamp = Date.now() + duration;
 		}
@@ -74,24 +80,36 @@ class EngineController {
 		currencyController.addCurrency(currencyType, amount);
 	}
 
-	private calculateDurationModifier(map: Map): number {
+	private calculateDurationModifier(map: Map, zone: MapZone): number {
 		const player = playerController.getPlayer();
 
-		// @TODO compare stats
+		const statModifier = this.compareStats(player, zone);
 
-		const attack = player.calculateDamage();
-		const defense = player.calculateDefense();
-		const speed = player.calculateSpeed();
+		return Math.max(statModifier, 1);
+	}
 
-		const mapAttackDifficutly = map.getAttackDifficulty();
-		const mapDefenseDifficutly = map.getDefenseDifficulty();
-		const mapSpeedDifficutly = map.getSpeedDifficulty();
+	private compareStats(player: Player, zone: MapZone): number {
+		let modifier: number = 0;
 
-		const attackModifier = mapAttackDifficutly / attack;
-		const defenseModifier = mapDefenseDifficutly / defense;
-		const speedModifier = mapSpeedDifficutly / speed;
+		// Calculate damage
+		let totalDamage = 0;
 
-		return Math.max(attackModifier, 1) + Math.max(defenseModifier, 1) + Math.max(speedModifier, 1);
+		// Physical damage
+		totalDamage += this.calculatePhysicalDamage(player, zone);
+
+		// Damage modifier
+		modifier += Calculator.calculateModifier(totalDamage, zone.getDamageThreshold());
+
+		console.log(modifier);
+
+		return modifier;
+	}
+
+	private calculatePhysicalDamage(player: Player, zone: MapZone): number {
+		const playerPhysicalDamage = player.physicalDamage;
+		const zonePhysicalDamageReduction = Calculator.calculatePhysicalDamageReduction(zone);
+
+		return playerPhysicalDamage * (1 - zonePhysicalDamageReduction);
 	}
 }
 

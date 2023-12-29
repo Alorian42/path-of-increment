@@ -7,9 +7,9 @@ export default abstract class Map extends AffixUser {
 	private readonly image: string;
 	private readonly lootTable: Array<typeof Item>;
 
-	protected attackDifficulty: number = 1;
-	protected defenseDifficulty: number = 1;
-	protected speedDifficulty: number = 1;
+	protected damageThreshold: number = 1;
+	protected defenseThreshold: number = 1;
+	protected speedThreshold: number = 1;
 	protected minDuration: number = 5; // in seconds
 
 	public endTimestamp: number = 0;
@@ -44,16 +44,16 @@ export default abstract class Map extends AffixUser {
 		return this.lootTable;
 	}
 
-	public getAttackDifficulty(): number {
-		return this.attackDifficulty;
+	public getDamageThreshold(): number {
+		return this.damageThreshold;
 	}
 
-	public getDefenseDifficulty(): number {
-		return this.defenseDifficulty;
+	public getDefenseThreshold(): number {
+		return this.defenseThreshold;
 	}
 
-	public getSpeedDifficulty(): number {
-		return this.speedDifficulty;
+	public getSpeedThreshold(): number {
+		return this.speedThreshold;
 	}
 
 	public getMinDuration(): number {
@@ -62,9 +62,9 @@ export default abstract class Map extends AffixUser {
 
 	public override getDescription(): string {
 		return `${super.getDescription()}
-			<br>Attack difficulty: ${this.attackDifficulty}
-			<br>Defense difficulty: ${this.defenseDifficulty}
-			<br>Speed difficulty: ${this.speedDifficulty}
+			<br>Attack difficulty: ${this.damageThreshold}
+			<br>Defense difficulty: ${this.defenseThreshold}
+			<br>Speed difficulty: ${this.speedThreshold}
 			<br>Minimum duration: ${this.minDuration}
 		`;
 	}

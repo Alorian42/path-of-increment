@@ -21,6 +21,22 @@ export default class MapZone extends StatUser {
 		return this.stats;
 	}
 
+	public getLevel(): number {
+		return this.map.getLevel();
+	}
+
+	public getDamageThreshold(): number {
+		return this.map.getDamageThreshold();
+	}
+
+	public getDefenseThreshold(): number {
+		return this.map.getDefenseThreshold();
+	}
+
+	public getSpeedThreshold(): number {
+		return this.map.getSpeedThreshold();
+	}
+
 	public get itemQuantity(): number {
 		return (this.stats.itemQuantity + this.stats.additionalItemQuantity) * this.stats.multiplierItemQuantity;
 	}
@@ -31,6 +47,10 @@ export default class MapZone extends StatUser {
 
 	public get mapPackSize(): number {
 		return (this.stats.mapPackSize + this.stats.additionalMapPackSize) * this.stats.multiplierMapPackSize;
+	}
+
+	public get mobArmor(): number {
+		return (this.stats.mobArmor + this.stats.additionalMobArmor) * this.stats.multiplierMobArmor;
 	}
 
 	public getDescription(): string {

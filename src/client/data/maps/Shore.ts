@@ -26,9 +26,9 @@ export default class ShoreMap extends Map {
 		] as unknown as Array<typeof Item>;
 		super('Shore', '01.png', rarity, 10, lootTable);
 
-		this.attackDifficulty = 2;
-		this.defenseDifficulty = 2;
-		this.speedDifficulty = 2;
+		this.damageThreshold = 6;
+		this.defenseThreshold = 2;
+		this.speedThreshold = 2;
 		this.minDuration = 10;
 	}
 

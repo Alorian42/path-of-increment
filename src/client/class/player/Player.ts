@@ -114,6 +114,10 @@ export default class Player extends StatUser {
 		);
 	}
 
+	public get physicalDamage(): number {
+		return (this.physicalDamageMin + this.physicalDamageMax) / 2;
+	}
+
 	public calculateDamage(): number {
 		return Math.floor((this.physicalDamageMin + this.physicalDamageMax) / 2);
 	}
