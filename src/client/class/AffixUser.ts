@@ -53,7 +53,7 @@ export default abstract class AffixUser {
 		});
 	}
 
-	protected walkThroughAffixes(callback: (affix: Affix) => void, callback2?: () => void): void {
+	public walkThroughAffixes(callback: (affix: Affix) => void, callback2?: () => void): void {
 		const implicits = this.getAffixes(AFFIXES_TYPES.IMPLICIT);
 		if (implicits.length > 0) {
 			implicits.forEach(callback);

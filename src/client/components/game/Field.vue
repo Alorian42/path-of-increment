@@ -5,8 +5,10 @@
 			<div>{{ Number(timeToEnd / 1000 + 1).toFixed(0) }} seconds left</div>
 			<div v-html="zone.getDescription()" />
 		</div>
-		<div class="map" :style="mapStyle" />
-		<div class="character" :style="characterStyle" />
+		<div class="field">
+			<div class="map" :style="mapStyle" />
+			<div class="character" :style="characterStyle" />
+		</div>
 	</div>
 </template>
 
@@ -71,9 +73,12 @@ export default {
 
 <style scoped>
 .game-field {
+	border: 1px solid #ccc;
+}
+
+.field {
 	width: 500px;
 	height: 500px;
-	border: 1px solid #ccc;
 	position: relative;
 }
 
@@ -92,9 +97,7 @@ export default {
 }
 
 .label {
-	position: absolute;
 	background: white;
 	padding: 10px;
 }
 </style>
-../../class/player/Player ../../class/map/Map ../../class/map/Map

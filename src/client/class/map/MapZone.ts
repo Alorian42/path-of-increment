@@ -10,6 +10,7 @@ export default class MapZone extends StatUser {
 		super();
 
 		this.map = map;
+		this.map.equip(this);
 	}
 
 	public modifyStat(stat: MAP_STATS_TYPE_HELPER, value: number): void {

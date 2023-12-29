@@ -10,6 +10,7 @@ import LeatherChest from '../items/LeatherChest';
 import LeatherGloves from '../items/LeatherGloves';
 import LeatherHelmet from '../items/LeatherHelmet';
 import WoodenWand from '../items/WoodenWand';
+import MobArmorBonusSmall from '../affixes/map/implicits/MobArmorBonusSmall';
 
 export default class ShoreMap extends Map {
 	constructor(rarity: ITEM_RARITY_TYPE_VALUE) {
@@ -36,7 +37,7 @@ export default class ShoreMap extends Map {
 	}
 
 	protected addImplicits(): void {
-		// @TODO
+		this.addAffix(new MobArmorBonusSmall());
 	}
 
 	protected setupPrefixPool(): void {

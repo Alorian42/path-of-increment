@@ -1,5 +1,5 @@
-import type Player from '../../../class/player/Player';
-import Implicit from '../../../class/affixes/Implicit';
+import type Player from '../../../../class/player/Player';
+import Implicit from '../../../../class/affixes/Implicit';
 
 export default class DexterityBonusSmall extends Implicit {
 	constructor() {

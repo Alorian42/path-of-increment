@@ -1,11 +1,11 @@
 import EntityRegisterController from '../../class/controllers/EntityRegisterController';
 import Helmet from '../../class/items/Helmet';
 import type { ITEM_RARITY_TYPE_VALUE } from '../../config/item';
-import DexterityBonusSmall from '../affixes/implicits/DexterityBonusSmall';
-import MinPhysDmgMultiSmall from '../affixes/prefixes/MinPhysDmgMultiSmall';
-import MinPhysDmgSmall from '../affixes/prefixes/MinPhysDmgSmall';
-import MaxPhysDmgMultiSmall from '../affixes/suffixes/MaxPhysDmgMultiSmall';
-import MaxPhysDmgSmall from '../affixes/suffixes/MaxPhysDmgSmall';
+import DexterityBonusSmall from '../affixes/player/implicits/DexterityBonusSmall';
+import MinPhysDmgMultiSmall from '../affixes/player/prefixes/MinPhysDmgMultiSmall';
+import MinPhysDmgSmall from '../affixes/player/prefixes/MinPhysDmgSmall';
+import MaxPhysDmgMultiSmall from '../affixes/player/suffixes/MaxPhysDmgMultiSmall';
+import MaxPhysDmgSmall from '../affixes/player/suffixes/MaxPhysDmgSmall';
 
 export default class LeatherHelmet extends Helmet {
 	constructor(rarity: ITEM_RARITY_TYPE_VALUE, itemLevel: number) {

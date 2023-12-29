@@ -1,5 +1,5 @@
-import type Player from '../../../class/player/Player';
-import Prefix from '../../../class/affixes/Prefix';
+import type Player from '../../../../class/player/Player';
+import Prefix from '../../../../class/affixes/Prefix';
 
 export default class MinPhysDmgSmall extends Prefix {
 	public static weight: number = 50;

@@ -20,7 +20,8 @@ class MapController {
 			return;
 		}
 
-		this.currentMap = new MapClass();
+		this.currentMap = new MapClass('normal');
+		this.currentMap?.identify();
 		this.zone = new MapZone(this.currentMap as unknown as Map);
 	}
 }

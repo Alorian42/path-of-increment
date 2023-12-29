@@ -1,5 +1,5 @@
-import type Player from '../../../class/player/Player';
-import Suffix from '../../../class/affixes/Suffix';
+import type Player from '../../../../class/player/Player';
+import Suffix from '../../../../class/affixes/Suffix';
 
 export default class MaxPhysDmgMultiSmall extends Suffix {
 	public static weight: number = 50;

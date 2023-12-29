@@ -11,6 +11,9 @@ export default class MapStats {
 			mapPackSize: 1,
 			additionalMapPackSize: 0,
 			multiplierMapPackSize: 1,
+			mobArmor: 1,
+			additionalMobArmor: 0,
+			multiplierMobArmor: 1,
 		};
 	}
 }
@@ -25,6 +28,9 @@ export const MAP_STATS = {
 	MAP_PACK_SIZE: 'mapPackSize',
 	ADDITIONAL_MAP_PACK_SIZE: 'additionalMapPackSize',
 	MULTIPLIER_MAP_PACK_SIZE: 'multiplierMapPackSize',
+	MOB_ARMOR: 'mobArmor',
+	ADDITIONAL_MOB_ARMOR: 'additionalMobArmor',
+	MULTIPLIER_MOB_ARMOR: 'multiplierMobArmor',
 } as const;
 
 export type MAP_STATS_TYPE_HELPER = (typeof MAP_STATS)[keyof typeof MAP_STATS];
