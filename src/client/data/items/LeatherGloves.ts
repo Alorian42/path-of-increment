@@ -1,3 +1,4 @@
+import EntityRegisterController from '../../class/controllers/EntityRegisterController';
 import Gloves from '../../class/items/Gloves';
 import type { ITEM_RARITY_TYPE_VALUE } from '../../config/item';
 import DexterityBonusSmall from '../affixes/implicits/DexterityBonusSmall';
@@ -8,7 +9,11 @@ import MaxPhysDmgSmall from '../affixes/suffixes/MaxPhysDmgSmall';
 
 export default class LeatherGloves extends Gloves {
 	constructor(rarity: ITEM_RARITY_TYPE_VALUE, itemLevel: number) {
-		super(3, 'Leather Gloves', 'leather_gloves.png', rarity, itemLevel);
+		super('Leather Gloves', 'leather_gloves.png', rarity, itemLevel);
+	}
+
+	protected selfRegister(): void {
+		EntityRegisterController.registerEntity(LeatherGloves, 3);
 	}
 
 	protected addImplicits(): void {

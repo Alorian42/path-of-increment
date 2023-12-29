@@ -3,7 +3,7 @@ import inventoryController from './InventoryController';
 import lootController from './LootController';
 import mapController from './MapController';
 import playerController from './PlayerController';
-import type Map from '../Map';
+import type Map from '../map/Map';
 import { CURRENCY_CHANCES, type CURRENCY_TYPES_HELPER } from '../../config/currency';
 
 class EngineController {
@@ -29,20 +29,21 @@ class EngineController {
 			return;
 		}
 
-		mapController.setCurrentMap(map);
+		mapController.startMap(map);
 
 		const currentMap = mapController.getCurrentMap();
 
 		if (currentMap !== null) {
 			this.isMapRunning = true;
-			currentMap.endTimestamp =
-				Date.now() + currentMap.getDuration() * this.calculateDurationModifier(currentMap) * 100;
+			const duration = currentMap.getMinDuration() * this.calculateDurationModifier(currentMap) * 1000;
+
+			currentMap.endTimestamp = Date.now() + duration;
 		}
 	}
 
 	public finishMap(): void {
 		this.awardLoot(mapController.getCurrentMap());
-		mapController.setCurrentMap(null);
+		mapController.startMap(null);
 
 		this.isMapRunning = false;
 	}
@@ -75,15 +76,22 @@ class EngineController {
 
 	private calculateDurationModifier(map: Map): number {
 		const player = playerController.getPlayer();
+
+		// @TODO compare stats
+
 		const attack = player.calculateDamage();
 		const defense = player.calculateDefense();
+		const speed = player.calculateSpeed();
+
 		const mapAttackDifficutly = map.getAttackDifficulty();
 		const mapDefenseDifficutly = map.getDefenseDifficulty();
+		const mapSpeedDifficutly = map.getSpeedDifficulty();
 
 		const attackModifier = mapAttackDifficutly / attack;
 		const defenseModifier = mapDefenseDifficutly / defense;
+		const speedModifier = mapSpeedDifficutly / speed;
 
-		return attackModifier + defenseModifier;
+		return Math.max(attackModifier, 1) + Math.max(defenseModifier, 1) + Math.max(speedModifier, 1);
 	}
 }
 

@@ -1,5 +1,7 @@
-import Map from '../../class/Map';
+import Map from '../../class/map/Map';
+import EntityRegisterController from '../../class/controllers/EntityRegisterController';
 import type Item from '../../class/items/Item';
+import { type ITEM_RARITY_TYPE_VALUE } from '../../config/item';
 import CoralAmulet from '../items/CoralAmulet';
 import IronRing from '../items/IronRing';
 import LeatherBelt from '../items/LeatherBelt';
@@ -10,7 +12,7 @@ import LeatherHelmet from '../items/LeatherHelmet';
 import WoodenWand from '../items/WoodenWand';
 
 export default class ShoreMap extends Map {
-	constructor() {
+	constructor(rarity: ITEM_RARITY_TYPE_VALUE) {
 		const lootTable = [
 			LeatherBoots,
 			LeatherChest,
@@ -21,10 +23,27 @@ export default class ShoreMap extends Map {
 			IronRing,
 			WoodenWand,
 		] as unknown as Array<typeof Item>;
-		super('Shore', '01.png', 10, lootTable);
+		super('Shore', '01.png', rarity, 10, lootTable);
 
 		this.attackDifficulty = 2;
 		this.defenseDifficulty = 2;
-		this.duration = 60;
+		this.speedDifficulty = 2;
+		this.minDuration = 10;
+	}
+
+	protected selfRegister(): void {
+		EntityRegisterController.registerEntity(ShoreMap, 100001);
+	}
+
+	protected addImplicits(): void {
+		// @TODO
+	}
+
+	protected setupPrefixPool(): void {
+		// @TODO
+	}
+
+	protected setupSuffixPool(): void {
+		// @TODO
 	}
 }

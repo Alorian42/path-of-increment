@@ -1,4 +1,4 @@
-import type Player from '../player/Player';
+import type StatUser from '../StatUser';
 
 export default abstract class Affix {
 	private readonly id: number;
@@ -64,8 +64,8 @@ export default abstract class Affix {
 		return `[${this.getType()}] ${this.name} ${this.value} (${this.valueMin} - ${this.valueMax})`;
 	}
 
-	public abstract equip(player: Player): void;
-	public abstract unequip(player: Player): void;
+	public abstract equip(entity: StatUser): void;
+	public abstract unequip(entity: StatUser): void;
 }
 
 export const AFFIXES_TYPES = {

@@ -5,7 +5,7 @@ import {
 	type ITEM_RARITY_TYPE_VALUE,
 } from '../../config/item';
 import { GLOBAL_LOOT_TABLE } from '../../config/loot';
-import type Map from '../Map';
+import type Map from '../map/Map';
 import type Item from '../items/Item';
 import type Player from '../player/Player';
 
@@ -52,8 +52,6 @@ export class LootController {
 		} else if (dice < 0.1) {
 			itemLevel += 1;
 		}
-
-		console.log('Item level', itemLevel);
 
 		return itemLevel;
 	}

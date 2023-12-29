@@ -1,11 +1,12 @@
+import StatUser from '../StatUser';
 import type Item from '../items/Item';
 import { ITEM_TYPES } from '../items/Item';
-import Stats from './Stats';
-import type { PLAYER_STATS_TYPE_HELPER } from './Stats';
+import PlayerStats from './PlayerStats';
+import type { PLAYER_STATS_TYPE_HELPER } from './PlayerStats';
 
 type ITEM_TYPES_HELPER = (typeof ITEM_TYPES)[keyof typeof ITEM_TYPES];
 
-export default class Player {
+export default class Player extends StatUser {
 	private readonly name: string;
 	private readonly image: string;
 
@@ -24,9 +25,11 @@ export default class Player {
 		{}
 	);
 
-	private readonly stats: Record<PLAYER_STATS_TYPE_HELPER, number> = Stats.getDefaults();
+	protected stats: Record<PLAYER_STATS_TYPE_HELPER, number> = PlayerStats.getDefaults();
 
 	constructor(name: string, image: string) {
+		super();
+
 		this.name = name;
 		this.image = image;
 	}
@@ -112,12 +115,14 @@ export default class Player {
 	}
 
 	public calculateDamage(): number {
-		return Math.floor(
-			Math.random() * (this.physicalDamageMax - this.physicalDamageMin + 1) + this.physicalDamageMin
-		);
+		return Math.floor((this.physicalDamageMin + this.physicalDamageMax) / 2);
 	}
 
 	public calculateDefense(): number {
+		return 1;
+	}
+
+	public calculateSpeed(): number {
 		return 1;
 	}
 }

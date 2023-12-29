@@ -26,7 +26,8 @@
 		"keyword-spacing": ["error", { "before": true }],
 		"import/no-extraneous-dependencies": "off",
 		"vue/block-order": ["error", { "order": ["template", "script", "style"] }],
-		"class-methods-use-this": "off"
+		"class-methods-use-this": "off",
+		"max-classes-per-file": "off"
 	},
 	"overrides": [
 		{

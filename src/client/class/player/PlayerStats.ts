@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export default class Stats {
+export default class PlayerStats {
 	public static getDefaults(): Record<PLAYER_STATS_TYPE_HELPER, number> {
 		return {
 			strength: 0,

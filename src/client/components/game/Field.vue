@@ -1,6 +1,10 @@
 <template>
 	<div class="game-field">
-		<div class="label">{{ map.getName() }} {{ Number(timeToEnd / 1000 + 1).toFixed(0) }} seconds left</div>
+		<div class="label">
+			{{ map.getName() }}
+			<div>{{ Number(timeToEnd / 1000 + 1).toFixed(0) }} seconds left</div>
+			<div v-html="zone.getDescription()" />
+		</div>
 		<div class="map" :style="mapStyle" />
 		<div class="character" :style="characterStyle" />
 	</div>
@@ -9,12 +13,17 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import type { PropType } from 'vue';
-import type Map from '../../class/Map';
+import type Map from '../../class/map/Map';
 import type Player from '../../class/player/Player';
+import type MapZone from '../../class/map/MapZone';
 
 const props = defineProps({
 	map: {
 		type: Object as PropType<Map>,
+		required: true,
+	},
+	zone: {
+		type: Object as PropType<MapZone>,
 		required: true,
 	},
 	player: {
@@ -88,4 +97,4 @@ export default {
 	padding: 10px;
 }
 </style>
-../../class/player/Player
+../../class/player/Player ../../class/map/Map ../../class/map/Map

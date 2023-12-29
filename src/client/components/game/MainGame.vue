@@ -2,7 +2,13 @@
 	<div class="main-game">
 		<TopMenu />
 		<div class="content">
-			<Field v-if="currentMap" :map="currentMap" :player="currentPlayer" @finish="onFinish" />
+			<Field
+				v-if="currentMap && currentZone"
+				:map="currentMap"
+				:zone="currentZone"
+				:player="currentPlayer"
+				@finish="onFinish"
+			/>
 			<MapSelect v-else :maps="mapPool" @start="onStart" />
 			<Character :key="inventoryKey" :player="currentPlayer" />
 		</div>
@@ -21,8 +27,9 @@ import inventoryController from '../../class/controllers/InventoryController';
 import lootController from '../../class/controllers/LootController';
 import engineController from '../../class/controllers/EngineController';
 import '../../class/controllers/CurrencyController';
-import type Map from '../../class/Map';
+import type Map from '../../class/map/Map';
 import { MAP_POOL } from '../../config/maps';
+import type MapZone from '../../class/map/MapZone';
 
 export default {
 	components: {
@@ -42,18 +49,21 @@ export default {
 		engineController.init();
 
 		const currentMap = ref(null) as Ref<Map | null>;
+		const currentZone = ref(null) as Ref<MapZone | null>;
 		const currentPlayer = computed(() => {
 			return playerController.value.getPlayer();
 		});
 
 		return {
 			currentMap,
+			currentZone,
 			currentPlayer,
 			inventoryKey,
 			mapPool: MAP_POOL.map((Map: any) => new Map()), // @TODO filter by accessebility
 			onStart: (map: Map) => {
 				engineController.startMap(Object.getPrototypeOf(map).constructor as typeof Map);
 				currentMap.value = mapController.value.getCurrentMap();
+				currentZone.value = mapController.value.getCurrentZone();
 			},
 			onFinish: () => {
 				engineController.finishMap();

@@ -1,3 +1,4 @@
+import EntityRegisterController from '../../class/controllers/EntityRegisterController';
 import BodyArmor from '../../class/items/BodyArmor';
 import type { ITEM_RARITY_TYPE_VALUE } from '../../config/item';
 import DexterityBonusSmall from '../affixes/implicits/DexterityBonusSmall';
@@ -8,7 +9,11 @@ import MaxPhysDmgSmall from '../affixes/suffixes/MaxPhysDmgSmall';
 
 export default class LeatherChest extends BodyArmor {
 	constructor(rarity: ITEM_RARITY_TYPE_VALUE, itemLevel: number) {
-		super(2, 'Leather Chest', 'leather_chest.png', rarity, itemLevel);
+		super('Leather Chest', 'leather_chest.png', rarity, itemLevel);
+	}
+
+	protected selfRegister(): void {
+		EntityRegisterController.registerEntity(LeatherChest, 2);
 	}
 
 	protected addImplicits(): void {

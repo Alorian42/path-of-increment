@@ -1,4 +1,4 @@
-import type Map from '../class/Map';
+import type Map from '../class/map/Map';
 import MudFlatsMap from '../data/maps/MudFlats';
 import ShoreMap from '../data/maps/Shore';
 

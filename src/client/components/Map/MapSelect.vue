@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { type PropType } from 'vue';
-import type Map from '../../class/Map';
+import type Map from '../../class/map/Map';
 
 defineProps({
 	maps: {
@@ -58,3 +58,4 @@ const onStart = (map: Map): void => {
 	}
 }
 </style>
+../../class/map/Map ../../class/map/Map
