@@ -10,7 +10,7 @@ export default class MobArmorBonusSmall extends Implicit {
 
 	public equip(zone: MapZone): void {
 		zone.modifyStat('multiplierMobArmor', this.getValue());
-		zone.modifyStat('additionalItemQuantity', this.getValue() / 10);
+		// zone.modifyStat('additionalMapPackSize', this.getValue() / 10);
 	}
 
 	public unequip(zone: MapZone): void {

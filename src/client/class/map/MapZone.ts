@@ -1,10 +1,12 @@
 import StatUser from '../StatUser';
+import type Enemy from '../enemy/Enemy';
 import type Map from './Map';
 import MapStats, { type MAP_STATS_TYPE_HELPER } from './MapStats';
 
 export default class MapZone extends StatUser {
 	protected stats: Record<MAP_STATS_TYPE_HELPER, number> = MapStats.getDefaults();
 	protected map: Map;
+	protected enemies: Enemy[] = [];
 
 	constructor(map: Map) {
 		super();
@@ -60,6 +62,20 @@ export default class MapZone extends StatUser {
 		<br>Item Rarity: ${this.itemRarity}
 		<br>Map Pack Size: ${this.mapPackSize}
 		<br>${this.map.getDescription()}
+		<br>Enemies: ${this.enemies.length} <br>
+			${this.enemies.map(enemy => enemy.getDescription()).join('<br>')}
 		`;
+	}
+
+	public addEnemy(enemy: Enemy): void {
+		this.enemies.push(enemy);
+	}
+
+	public getEnemies(): Enemy[] {
+		return this.enemies;
+	}
+
+	public getNextEnemy(): Enemy | null {
+		return this.enemies[0] ?? null;
 	}
 }

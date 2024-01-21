@@ -5,9 +5,9 @@ import {
 	type ITEM_RARITY_TYPE_VALUE,
 } from '../../config/item';
 import { GLOBAL_LOOT_TABLE } from '../../config/loot';
-import type Map from '../map/Map';
 import type Item from '../items/Item';
 import type Player from '../player/Player';
+import type Enemy from '../enemy/Enemy';
 
 export class LootController {
 	private player!: Player;
@@ -16,10 +16,10 @@ export class LootController {
 		this.player = player;
 	}
 
-	public generateItem(map?: Map): Item {
+	public generateItem(enemy?: Enemy): Item {
 		const rarity = this.determineItemRarity();
-		const itemLevel = this.determineItemLevel(map);
-		const ItemBase = this.determineItemBase(map) as any;
+		const itemLevel = this.determineItemLevel(enemy);
+		const ItemBase = this.determineItemBase(enemy) as any;
 		const item = new ItemBase(rarity, itemLevel);
 
 		this.determineAffixes(item as Item);
@@ -43,9 +43,9 @@ export class LootController {
 		return rarity;
 	}
 
-	private determineItemLevel(map?: Map): number {
+	private determineItemLevel(enemy?: Enemy): number {
 		const dice = Math.random();
-		let itemLevel = map?.getLevel() ?? 99;
+		let itemLevel = enemy?.getLevel() ?? 99;
 
 		if (dice < 0.01) {
 			itemLevel += 2;
@@ -56,8 +56,8 @@ export class LootController {
 		return itemLevel;
 	}
 
-	private determineItemBase(map?: Map): typeof Item {
-		const lootTable = map?.getLootTable() ?? GLOBAL_LOOT_TABLE;
+	private determineItemBase(enemy?: Enemy): typeof Item {
+		const lootTable = enemy?.getLootTable() ?? GLOBAL_LOOT_TABLE;
 
 		// Get random item from loot table
 		const item = lootTable[Math.floor(Math.random() * lootTable.length)] as unknown as typeof Item;

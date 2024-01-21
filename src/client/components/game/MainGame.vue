@@ -7,7 +7,6 @@
 				:map="currentMap"
 				:zone="currentZone"
 				:player="currentPlayer"
-				@finish="onFinish"
 			/>
 			<MapSelect v-else :maps="mapPool" @start="onStart" />
 			<Character :key="inventoryKey" :player="currentPlayer" />
@@ -30,6 +29,9 @@ import '../../class/controllers/CurrencyController';
 import type Map from '../../class/map/Map';
 import { MAP_POOL } from '../../config/maps';
 import type MapZone from '../../class/map/MapZone';
+import EventBus from '../../class/EventBus/EventBus';
+import MapFinishEvent from '../../class/EventBus/MapFinishEvent';
+import UpdateInventoryEvent from '../../class/EventBus/UpdateInventoryEvent';
 
 export default {
 	components: {
@@ -54,6 +56,14 @@ export default {
 			return playerController.value.getPlayer();
 		});
 
+		EventBus.getInstance().subscribe(new MapFinishEvent(), () => {
+			currentMap.value = null;
+		});
+
+		EventBus.getInstance().subscribe(new UpdateInventoryEvent(), () => {
+			inventoryKey.value += 1;
+		});
+
 		return {
 			currentMap,
 			currentZone,
@@ -64,11 +74,6 @@ export default {
 				engineController.startMap(Object.getPrototypeOf(map).constructor as typeof Map);
 				currentMap.value = mapController.value.getCurrentMap();
 				currentZone.value = mapController.value.getCurrentZone();
-			},
-			onFinish: () => {
-				engineController.finishMap();
-				currentMap.value = null;
-				inventoryKey.value += 1;
 			},
 		};
 	},

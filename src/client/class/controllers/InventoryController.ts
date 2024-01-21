@@ -1,4 +1,6 @@
 import { MAX_INVENTORY_SIZE } from '../../config/inventory';
+import EventBus from '../EventBus/EventBus';
+import UpdateInventoryEvent from '../EventBus/UpdateInventoryEvent';
 import type Item from '../items/Item';
 import type { ITEM_TYPES } from '../items/Item';
 import type Player from '../player/Player';
@@ -6,6 +8,7 @@ import type Player from '../player/Player';
 export class InventoryController {
 	private player!: Player;
 	private readonly inventory: Array<Item | undefined> = new Array(MAX_INVENTORY_SIZE).fill(undefined);
+	private readonly eventBus = EventBus.getInstance();
 
 	public setPlayer(player: Player): void {
 		this.player = player;
@@ -39,6 +42,7 @@ export class InventoryController {
 
 		if (index !== -1) {
 			this.inventory[index] = item;
+			this.eventBus.publish(new UpdateInventoryEvent());
 		}
 	}
 

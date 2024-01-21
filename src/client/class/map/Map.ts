@@ -1,11 +1,13 @@
 import { type ITEM_RARITY_TYPE_VALUE } from '../../config/item';
 import AffixUser from '../AffixUser';
+import type Enemy from '../enemy/Enemy';
 import type Item from '../items/Item';
 
 export default abstract class Map extends AffixUser {
 	private readonly name: string;
 	private readonly image: string;
 	private readonly lootTable: Array<typeof Item>;
+	private readonly enemyTypes: Array<typeof Enemy>;
 
 	protected damageThreshold: number = 1;
 	protected defenseThreshold: number = 1;
@@ -19,13 +21,15 @@ export default abstract class Map extends AffixUser {
 		image: string,
 		rarity: ITEM_RARITY_TYPE_VALUE,
 		mapLevel: number,
-		lootTable: Array<typeof Item>
+		lootTable: Array<typeof Item>,
+		enemyTypes: Array<typeof Enemy>
 	) {
 		super(rarity, mapLevel);
 
 		this.name = name;
 		this.image = image;
 		this.lootTable = lootTable;
+		this.enemyTypes = enemyTypes;
 	}
 
 	public getName(): string {
@@ -67,5 +71,9 @@ export default abstract class Map extends AffixUser {
 			<br>Speed difficulty: ${this.speedThreshold}
 			<br>Minimum duration: ${this.minDuration}
 		`;
+	}
+
+	public getEnemyTypes(): Array<typeof Enemy> {
+		return this.enemyTypes;
 	}
 }

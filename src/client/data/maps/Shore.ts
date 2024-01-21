@@ -11,6 +11,8 @@ import LeatherGloves from '../items/LeatherGloves';
 import LeatherHelmet from '../items/LeatherHelmet';
 import WoodenWand from '../items/WoodenWand';
 import MobArmorBonusSmall from '../affixes/map/implicits/MobArmorBonusSmall';
+import ZombieEnemy from '../enemy/ZombieEnemy';
+import type Enemy from '../../class/enemy/Enemy';
 
 export default class ShoreMap extends Map {
 	constructor(rarity: ITEM_RARITY_TYPE_VALUE) {
@@ -24,7 +26,8 @@ export default class ShoreMap extends Map {
 			IronRing,
 			WoodenWand,
 		] as unknown as Array<typeof Item>;
-		super('Shore', '01.png', rarity, 10, lootTable);
+		const enemyTypes = [ZombieEnemy] as unknown as Array<typeof Enemy>;
+		super('Shore', '01.png', rarity, 10, lootTable, enemyTypes);
 
 		this.damageThreshold = 6;
 		this.defenseThreshold = 2;

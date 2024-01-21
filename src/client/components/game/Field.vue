@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import type { PropType } from 'vue';
 import type Map from '../../class/map/Map';
 import type Player from '../../class/player/Player';
@@ -33,8 +33,6 @@ const props = defineProps({
 		required: true,
 	},
 });
-
-const emit = defineEmits(['finish']);
 
 const mapStyle = computed(() => {
 	return {
@@ -57,12 +55,6 @@ const timeToEnd = computed(() => {
 setInterval(() => {
 	currentTime.value = Date.now();
 }, 1000);
-
-watch(timeToEnd, value => {
-	if (value <= 0) {
-		emit('finish');
-	}
-});
 </script>
 
 <script lang="ts">

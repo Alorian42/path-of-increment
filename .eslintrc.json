@@ -27,7 +27,8 @@
 		"import/no-extraneous-dependencies": "off",
 		"vue/block-order": ["error", { "order": ["template", "script", "style"] }],
 		"class-methods-use-this": "off",
-		"max-classes-per-file": "off"
+		"max-classes-per-file": "off",
+		"@typescript-eslint/ban-types": "off"
 	},
 	"overrides": [
 		{

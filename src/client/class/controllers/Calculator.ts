@@ -1,17 +1,15 @@
 import { ARMOR_CONSTANT, MAX_DAMAGE_REDUCTION, MAX_MODIFIER, MODIFIER_CONSTANT } from '../../config/calculator';
-import type MapZone from '../map/MapZone';
+import type Enemy from '../enemy/Enemy';
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class Calculator {
-	public static calculatePhysicalDamageReduction(zone: MapZone): number {
-		const zoneArmor = zone.mobArmor;
-		const zoneLevel = zone.getLevel();
+	public static calculatePhysicalDamageReduction(enemy: Enemy): number {
+		const enemyArmor = enemy.armor;
+		const enemyLevel = enemy.getLevel();
 
-		const baseReduction = Math.E ** ((-1 * zoneLevel) / (zoneArmor / ARMOR_CONSTANT));
+		const baseReduction = Math.E ** ((-1 * enemyLevel) / (enemyArmor / ARMOR_CONSTANT));
 		const realReduction = Math.min(baseReduction, MAX_DAMAGE_REDUCTION);
 
-		console.log('zoneArmor', zoneArmor, 'zoneLevel', zoneLevel);
-		console.log('baseReduction', baseReduction, 'realReduction', realReduction);
 		return realReduction;
 	}
 

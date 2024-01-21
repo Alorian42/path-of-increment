@@ -10,6 +10,8 @@ import LeatherChest from '../items/LeatherChest';
 import LeatherGloves from '../items/LeatherGloves';
 import LeatherHelmet from '../items/LeatherHelmet';
 import WoodenWand from '../items/WoodenWand';
+import ZombieEnemy from '../enemy/ZombieEnemy';
+import type Enemy from '../../class/enemy/Enemy';
 
 export default class MudFlatsMap extends Map {
 	constructor(rarity: ITEM_RARITY_TYPE_VALUE) {
@@ -23,7 +25,8 @@ export default class MudFlatsMap extends Map {
 			IronRing,
 			WoodenWand,
 		] as unknown as Array<typeof Item>;
-		super('MudFlats', '02.png', rarity, 15, lootTable);
+		const enemyTypes = [ZombieEnemy] as unknown as Array<typeof Enemy>;
+		super('MudFlats', '02.png', rarity, 15, lootTable, enemyTypes);
 	}
 
 	protected selfRegister(): void {

@@ -2,24 +2,12 @@
 	<div class="menu">
 		<h1>Welcome to the Game Menu</h1>
 		<ul>
-			<li><span @click="startGame">Start Game</span></li>
+			<li><router-link :to="{ name: 'game' }">Start Game</router-link></li>
 			<li><router-link :to="{ name: 'options' }">Options</router-link></li>
 			<li><span @click="closeWindow">Exit</span></li>
 		</ul>
 	</div>
 </template>
-
-<script setup lang="ts">
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-const startGame = (): void => {
-	console.log('Starting game...');
-	router.push({ name: 'game' }).catch(err => {
-		console.error(err);
-	});
-};
-</script>
 
 <script lang="ts">
 export default {
